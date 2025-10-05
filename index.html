@@ -7,14 +7,28 @@
     <link rel="stylesheet" href="src/css/styles.css">
 </head>
 <body>
-    <header>
-        <nav class="main-nav">
+    <header class="site-header">
+        <nav class="main-nav" role="navigation" aria-label="Main Navigation">
             <div class="logo">Frontend Assessment</div>
-            <ul class="nav-links">
-                <li><a href="#drag-section">Drag & Drop</a></li>
-                <li><a href="#list-section">Blog List</a></li>
+            
+            <button 
+                id="menu-toggle" 
+                class="nav-toggle" 
+                aria-controls="nav-list" 
+                aria-expanded="false"
+                tabindex="0"
+            >
+                <span class="sr-only">Toggle navigation menu</span>
+                &#9776; </button>
+    
+            <ul class="nav-links" id="nav-list" role="menu">
+                <li role="presentation">
+                    <a href="#drag-section" class="nav-tab" role="menuitem" tabindex="0">Drag & Drop</a>
+                </li>
+                <li role="presentation">
+                    <a href="#list-section" class="nav-tab" role="menuitem" tabindex="0">Blog List</a>
+                </li>
             </ul>
-            <button class="nav-toggle hidden">☰</button>
         </nav>
     </header>
     <main>

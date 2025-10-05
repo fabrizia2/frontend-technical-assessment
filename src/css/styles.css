@@ -148,23 +148,21 @@ body {
 
 /* --- Global Scroll Behavior --- */
 html {
-    /* Enables smooth scrolling when clicking navigation links */
-    scroll-behavior: smooth; 
+    scroll-behavior: smooth; /* Smooth Scroll */
 }
 
 /* --- Header & Navigation Styling --- */
-header {
-    background-color: var(--primary-color); /* Dark background */
+.site-header {
+    background-color: var(--primary-color);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    /* Key for sticky behavior */
-    position: sticky; 
+    position: sticky; /* Sticky Navigation */
     top: 0;
-    z-index: 1000; /* Ensure it stays above other content */
+    z-index: 1000;
 }
 
 .main-nav {
     max-width: 1200px;
-    margin: 0 auto; /* Center the navigation content */
+    margin: 0 auto;
     padding: 15px 30px;
     display: flex;
     justify-content: space-between;
@@ -183,6 +181,8 @@ header {
     padding: 0;
     display: flex;
     gap: 30px;
+    /* Accessibility/Mobile */
+    transition: transform 0.3s ease-out;
 }
 
 .nav-links li a {
@@ -191,18 +191,40 @@ header {
     font-size: 1em;
     font-weight: 500;
     padding: 5px 0;
-    /* Smooth hover effect like in the video */
-    transition: color 0.2s, border-bottom 0.2s; 
+    transition: color 0.2s, border-bottom 0.2s;
+    display: block; /* Important for dynamic highlighting */
 }
 
-.nav-links li a:hover {
-    color: var(--secondary-color); /* Bright blue hover color */
-    border-bottom: 2px solid var(--secondary-color);
+/* Dynamic Button Highlighting Style */
+.nav-links li a.active {
+    color: var(--secondary-color);
+    border-bottom: 3px solid var(--secondary-color); /* Thicker highlight */
 }
 
+.nav-links li a:hover:not(.active) {
+    color: #bbbbbb; /* Lighter hover when not active */
+}
+
+/* --- Mobile Toggle Button --- */
 .nav-toggle {
-    /* Hide the hamburger button on desktop */
-    display: none; 
+    display: none; /* Hidden by default on desktop */
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8em;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
 
 body {
@@ -485,22 +507,42 @@ h2 {
 
 /* Basic responsiveness for smaller screens */
 @media (max-width: 768px) {
-    .nav-links {
-        /* Hide navigation links by default on mobile */
-        display: none; 
-        /* The mobile toggle logic will be handled in JS (Task 1, Part 2) */
+    .main-nav {
+        padding: 15px 20px;
     }
 
     .nav-toggle {
-        /* Show the hamburger button on mobile */
-        display: block; 
-        background: none;
-        border: none;
-        color: white;
-        font-size: 1.8em;
-        cursor: pointer;
+        display: block; /* Show hamburger menu on mobile */
     }
 
+    .nav-links {
+        /* Mobile menu position */
+        position: absolute;
+        top: 100%; /* Below the header */
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background-color: var(--primary-color);
+        box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
+        
+        /* Hiding state */
+        transform: translateX(-100%);
+    }
+
+    .nav-links.is-open {
+        transform: translateX(0); /* Reveal menu */
+    }
+    
+    .nav-links li {
+        width: 100%;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links li a {
+        padding: 15px 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
     .content-section {
         margin: 20px auto;
         padding: 20px;
